@@ -20,3 +20,5 @@ and then make adjustments in arandr.
 - Set wallpaper:
 
 Just type ```nitrogen``` in your shell and choose your best wallpaper.
+
+- Changing default browser: https://www.rockyourcode.com/change-the-default-browser-in-i3-manjaro-linux/
