@@ -21,4 +21,4 @@ and then make adjustments in arandr.
 
 - Changing default browser: https://www.rockyourcode.com/change-the-default-browser-in-i3-manjaro-linux/
 
-- Disable automatic lock screen: ```# exec --no-startup-id xauto -time 10 -locker blurlock```
+- Disable automatic lock screen: ```# exec --no-startup-id xautolock -time 10 -locker blurlock```
