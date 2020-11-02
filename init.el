@@ -1,3 +1,4 @@
+;;; package - Summary
 ;; Remove welcome message
 (setq inhibit-startup-message t)
 
@@ -8,7 +9,7 @@
 ;; Remove scrollbar
 (scroll-bar-mode -1)
 
-;; Enumerating rows
+;; Enumerate rows
 (global-linum-mode t)
 
 ;; Fontsize
@@ -26,15 +27,15 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-;;---------Functions------------;;
+;;----------Functions----------;;
 (defun new-empty-buffer ()
   (interactive)
   (let ((-buf (generate-new-buffer "untitled")))
     (switch-to-buffer -buf)
-    (funcall initial-major-mode)
+    (funcall inital-major-mode)
     (setq buffer-offer-save t)))
 
-;;---------My packages----------;;
+;;----------My Packages----------;;
 (use-package try
   :ensure t)
 
@@ -66,23 +67,39 @@
   :ensure t
   :bind (("M-o" . ace-window)))
 
-;;(use-package ergoemacs-mode
-;;  :ensure t
-;;  :config
-;;  (progn
-;;    (setq ergoemacs-theme nil)
-;;    (setq ergoemacs-keyboard-layout "us")
-;;    (ergoemacs-mode 1)))
-
-;; Tema
-(use-package night-owl-theme
-  :ensure t
-  :config (load-theme 'night-owl t))
-
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode t))
 
+(use-package markdown-mode
+  :ensure t)
+
+(use-package magit
+  :ensure t)
+
+(use-package projectile
+  :ensure t
+  :config
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
+
+(use-package julia-mode
+  :ensure t
+  :defer t
+  :init
+  (setq inferior-julia-program-name "/usr/bin/julia"))
+
+(use-package lsp-mode
+  :ensure t
+  :commands lsp
+  :diminish lsp-mode
+  :hook
+  (elixir-mode . lsp)
+  :init
+  (add-to-list 'exec-path "/usr/bin/elixir"))
+
+;; Init screen
 (use-package dashboard
   :ensure t
   :init
@@ -98,29 +115,15 @@
   :config
   (dashboard-setup-startup-hook))
 
-(use-package projectile
+;; Theme
+(use-package rebecca-theme
   :ensure t
-  :config
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (projectile-mode +1))
+  :config (load-theme 'rebecca t))
 
-(use-package markdown-mode
-  :ensure t)
-
-;; (use-package jedi
-;;   :ensure t
-;;   :init
-;;   (add-hook 'python-mode-hook 'jedi:setup)
-;;   (add-hook 'python-mode-hook 'jedi:ac-setup))
-
-(use-package magit
-  :ensure t)
-
-;;------------My shortcuts-----------;;
+;;----------My shortcuts----------;;
 (global-set-key (kbd "C-<tab>") 'other-window)
-(global-set-key (kbd "M-<down>") 'enlarge-window)
-(global-set-key (kbd "M-<up>") 'shrink-window)
+(global-set-key (kbd "M-<up>") 'enlarge-window)
+(global-set-key (kbd "M-<down>") 'shrink-window)
 (global-set-key (kbd "M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "C-/") 'comment-line)
@@ -129,20 +132,17 @@
 (global-set-key "\C-n" 'new-empty-buffer)
 (global-set-key "\C-a" 'mark-whole-buffer)
 (global-set-key "\C-k" (lambda () (interactive) (kill-buffer (current-buffer))))
-
+ 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("3263bd17a7299449e6ffe118f0a14b92373763c4ccb140f4a30c182a85516d7f" "e208e45345b91e391fa66ce028e2b30a6aa82a37da8aa988c3f3c011a15baa22" default))
  '(package-selected-packages
-   '(magit night-owl-theme tomorrow-night-paradise-theme assemblage-theme jedi markdown-mode projectile projectfile dashboard exotica-theme ergoemacs-mode ace-window use-package)))
+   '(lsp-mode julia-mode dashboard projectile magit markdown-mode flycheck rebecca-theme night-owl-theme ace-window neotree all-the-icons auto-complete which-key try use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
